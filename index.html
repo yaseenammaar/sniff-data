@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sniff Data: the humor layer for AI</title>
+  <meta name="description" content="AI is fluent, not funny. Sniff collects real people’s votes on what’s funny, to whom, and why. Launching soon." />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Sniff Data" />
+  <meta property="og:title" content="AI is fluent, not funny. Sniff Data: the humor layer for AI" />
+  <meta property="og:description" content="Real people’s votes on what’s funny, to whom, and why." />
+  <meta property="og:url" content="https://data.sniff.so/" />
+  <meta property="og:image" content="https://data.sniff.so/assets/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="AI is fluent. It’s not funny. Sniff Data." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://data.sniff.so/assets/og.png" />
+  <link rel="canonical" href="https://data.sniff.so/" />
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f7f6f1;
+      --paper: #fdfdfb;
+      --ink: #1d2433;
+      --ink-2: #3a4256;
+      --muted: #6b7286;
+      --faint: #a2a7b5;
+      --rule: #e2e0d7;
+      --rule-2: #ecebe4;
+      --marker: #d3edb2;
+      --pink: #4b5cb3;
+      --pink-2: #8197dc;
+      --pink-soft: #e4eafa;
+      --blue: #4b5cb3;
+      --blue-soft: #e4eafa;
+      --btn: #c9d6f2;
+      --btn-hover: #b6c7ec;
+      --navy: #27325a;
+      --bar-muted: #c3c6d0;
+      --display: "Space Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      --serif: "Space Grotesk", ui-sans-serif, system-ui, -apple-system, sans-serif;
+      --sans: "Space Grotesk", ui-sans-serif, system-ui, -apple-system, sans-serif;
+      --hand: "Space Mono", ui-monospace, monospace;
+      --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      --shadow-sm: 0 1px 2px rgba(24, 24, 27, .05);
+      --shadow-md: 0 2px 6px rgba(29, 36, 51, .05);
+      --shadow-lg: 0 4px 14px rgba(29, 36, 51, .07);
+      --r-sm: 6px; --r-md: 8px; --r-lg: 10px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--bg); color: var(--ink); -webkit-font-smoothing: antialiased; line-height: 1.55; overflow-x: hidden; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; }
+    .wrap { width: calc(100% - 48px); max-width: 1120px; margin: 0 auto; }
+    .prose { max-width: 700px; }
+    @media (max-width: 560px) { .wrap { width: calc(100% - 32px); } }
+    /* Buttons */
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; border-radius: 6px; font-family: var(--display); font-weight: 700; font-size: 12.5px; letter-spacing: .04em; text-transform: uppercase; text-decoration: none; cursor: pointer; border: 1px solid transparent; white-space: nowrap; transition: background .15s, border-color .15s, transform .15s; }
+    .btn-primary { background: var(--btn); color: var(--ink); padding: 9px 16px; }
+    .btn-primary:hover { background: var(--btn-hover); }
+    .btn .ar { font-family: var(--sans); font-size: 15px; }
+    .logo { display: inline-flex; align-items: center; gap: 9px; text-decoration: none; }
+    .logo img { width: 28px; height: 28px; border-radius: var(--r-sm); }
+    .logo-word { font-family: var(--display); font-size: 15px; font-weight: 700; letter-spacing: .01em; white-space: nowrap; text-transform: uppercase; }
+    h1, h2 { font-family: var(--display); font-weight: 400; letter-spacing: -.02em; line-height: 1.12; }
+    .hl { background: linear-gradient(transparent 60%, var(--marker) 60%, var(--marker) 94%, transparent 94%); padding: 0 .06em; }
+    /* ---------- HERO ---------- */
+    .hero { position: relative; overflow: hidden; border-bottom: 1px solid var(--rule); }
+    .hero-head { text-align: center; padding: 72px 0 0; position: relative; z-index: 2; }
+    @media (max-width: 760px) { .hero-head { padding-top: 48px; } }
+    .hero h1 { font-size: clamp(34px, 5.4vw, 64px); letter-spacing: -.035em; line-height: 1.08; }
+    .hero h1 em { font-style: normal; color: var(--pink); }
+    .hero .dek { font-size: 17px; color: var(--ink-2); margin: 18px auto 0; max-width: 520px; line-height: 1.5; }
+    .scene-wrap { position: relative; margin-top: -10px; }
+    .scene-wrap::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 90px; background: linear-gradient(var(--bg), transparent); z-index: 1; pointer-events: none; }
+    svg.iso { display: block; width: 100%; max-width: 1240px; height: auto; margin: 0 auto; overflow: visible; }
+    @media (max-width: 760px) { svg.iso { width: 150%; margin-left: -22%; } }
+    svg.iso .grid line { stroke: #dad8ce; stroke-width: 1; }
+    svg.iso .routes path { fill: none; stroke: #8c92a6; stroke-width: 1.4; stroke-dasharray: 3 5; stroke-linecap: round; }
+    svg.iso .ink polygon, svg.iso .ink path, svg.iso .ink ellipse, svg.iso .ink circle, svg.iso .ink rect { stroke: #27325a; stroke-width: 1.5; stroke-linejoin: round; }
+    svg.iso .ink .nos { stroke: none; }
+    svg.iso .ink line.thin, svg.iso line.thin { stroke: #27325a; stroke-width: 1; opacity: .55; }
+    svg.iso .sign { font-family: var(--display); font-size: 12px; font-weight: 700; letter-spacing: .18em; fill: #27325a; }
+    svg.iso .lbl { font-family: var(--display); font-size: 7px; font-weight: 700; letter-spacing: .06em; fill: #27325a; }
+    svg.iso .scr { font-family: var(--mono); font-size: 10px; fill: #d6efba; }
+    svg.iso .scr.dim { fill: #8b98c9; }
+    svg.iso .scr.ok { fill: #b1dc88; }
+    svg.iso .pawn text { font-family: var(--display); font-size: 11px; font-weight: 700; fill: #27325a; stroke: none; }
+    svg.iso .pawn .say { opacity: 0; transition: opacity .25s, transform .25s; }
+    svg.iso .pawn .say.on { opacity: 1; }
+    svg.iso .chip rect { fill: #fff; stroke: #c9ccd8; stroke-width: 1; }
+    svg.iso .chip .ic { stroke: #27325a; stroke-width: 1; }
+    svg.iso .chip text { font-family: var(--sans); font-size: 10.5px; font-weight: 600; fill: #1d2433; }
+    svg.iso .chip text.v { font-family: var(--mono); font-size: 9.5px; font-weight: 500; fill: #4b5cb3; }
+    svg.iso .chip.tag rect { stroke: #27325a; }
+    #scr-a, #scr-b { transition: width .6s cubic-bezier(.2,.8,.2,1); }
+    footer { display: grid; grid-template-columns: auto 1fr; font-family: var(--display); font-size: 11.5px; letter-spacing: .02em; }
+    footer .l { background: #5d6c9f; color: #fff; padding: 12px 28px; }
+    footer .r { background: var(--btn); display: flex; justify-content: space-between; gap: 18px; padding: 12px 28px; flex-wrap: wrap; }
+    footer a { text-decoration: none; color: var(--ink); }
+    footer a:hover { text-decoration: underline; }
+    footer nav { display: flex; gap: 22px; flex-wrap: wrap; }
+    @media (max-width: 640px) { footer { grid-template-columns: 1fr; } footer .l, footer .r { padding: 12px 16px; } }
+    /* Teaser layout */
+    html, body { min-height: 100%; }
+    body { min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; }
+    .top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 0; }
+    .status { font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+    .status i { width: 7px; height: 7px; border-radius: 50%; background: #7cc04a; display: block; animation: pulse 2.2s ease-in-out infinite; }
+    @keyframes pulse { 50% { opacity: .35; } }
+    @media (prefers-reduced-motion: reduce) { .status i { animation: none; } }
+    .hero { flex: 1; border-bottom: 0; }
+    footer { position: sticky; bottom: 0; z-index: 5; }
+    .hero-head { padding-top: 40px; }
+    @media (max-width: 760px) { .hero-head { padding-top: 28px; } }
+    .cta { margin-top: 28px; }
+    .cta .btn { padding: 13px 20px; }
+    :focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+  </style>
+</head>
+<body>
+  <div class="wrap top">
+    <a class="logo" href="/" aria-label="Sniff Data">
+      <img src="assets/sniff-dog-logo-120.png" alt="" width="28" height="28" />
+      <span class="logo-word">Sniff Data</span>
+    </a>
+    <div class="status"><i></i>Launching soon</div>
+  </div>
+
+  <header class="hero">
+    <div class="wrap hero-head">
+      <h1>AI is fluent.<br/>It’s not <em>funny</em>.</h1>
+      <p class="dek">It read every joke ever written. It still can’t land one.<br/>The <span class="hl">humor layer for AI</span>.</p>
+      <div class="cta">
+        <a class="btn btn-primary" href="mailto:yaseen@sniff.so?subject=Sample%20data%20request">Request sample data <span class="ar">→</span></a>
+      </div>
+    </div>
+    <div class="scene-wrap">
+<svg class="iso" id="iso" viewBox="0 0 1240 560" role="img" aria-label="Illustration: jokes travel into the Sniff doghouse, a crowd votes, and labeled data comes out: how funny, who laughed, and why.">
+<defs>
+  <pattern id="dots" width="7" height="7" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r=".9" fill="#1d2433" opacity=".28"/></pattern>
+  <radialGradient id="gfade" cx="50%" cy="58%" r="62%"><stop offset="0" stop-color="#fff"/><stop offset=".7" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+  <mask id="gmask"><rect width="1240" height="560" fill="url(#gfade)"/></mask>
+  <linearGradient id="topfade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--bg)"/><stop offset="1" stop-color="var(--bg)" stop-opacity="0"/></linearGradient>
+</defs>
+<g class="grid" mask="url(#gmask)"><line x1="600" y1="-420" x2="-647.1" y2="300"/><line x1="600" y1="-420" x2="1847.1" y2="300"/><line x1="641.6" y1="-396" x2="-605.5" y2="324"/><line x1="558.4" y1="-396" x2="1805.5" y2="324"/><line x1="683.1" y1="-372" x2="-563.9" y2="348"/><line x1="516.9" y1="-372" x2="1763.9" y2="348"/><line x1="724.7" y1="-348" x2="-522.4" y2="372"/><line x1="475.3" y1="-348" x2="1722.4" y2="372"/><line x1="766.3" y1="-324" x2="-480.8" y2="396"/><line x1="433.7" y1="-324" x2="1680.8" y2="396"/><line x1="807.8" y1="-300" x2="-439.2" y2="420"/><line x1="392.2" y1="-300" x2="1639.2" y2="420"/><line x1="849.4" y1="-276" x2="-397.7" y2="444"/><line x1="350.6" y1="-276" x2="1597.7" y2="444"/><line x1="891" y1="-252" x2="-356.1" y2="468"/><line x1="309" y1="-252" x2="1556.1" y2="468"/><line x1="932.6" y1="-228" x2="-314.5" y2="492"/><line x1="267.4" y1="-228" x2="1514.5" y2="492"/><line x1="974.1" y1="-204" x2="-273" y2="516"/><line x1="225.9" y1="-204" x2="1473" y2="516"/><line x1="1015.7" y1="-180" x2="-231.4" y2="540"/><line x1="184.3" y1="-180" x2="1431.4" y2="540"/><line x1="1057.3" y1="-156" x2="-189.8" y2="564"/><line x1="142.7" y1="-156" x2="1389.8" y2="564"/><line x1="1098.8" y1="-132" x2="-148.2" y2="588"/><line x1="101.2" y1="-132" x2="1348.2" y2="588"/><line x1="1140.4" y1="-108" x2="-106.7" y2="612"/><line x1="59.6" y1="-108" x2="1306.7" y2="612"/><line x1="1182" y1="-84" x2="-65.1" y2="636"/><line x1="18" y1="-84" x2="1265.1" y2="636"/><line x1="1223.5" y1="-60" x2="-23.5" y2="660"/><line x1="-23.5" y1="-60" x2="1223.5" y2="660"/><line x1="1265.1" y1="-36" x2="18" y2="684"/><line x1="-65.1" y1="-36" x2="1182" y2="684"/><line x1="1306.7" y1="-12" x2="59.6" y2="708"/><line x1="-106.7" y1="-12" x2="1140.4" y2="708"/><line x1="1348.2" y1="12" x2="101.2" y2="732"/><line x1="-148.2" y1="12" x2="1098.8" y2="732"/><line x1="1389.8" y1="36" x2="142.7" y2="756"/><line x1="-189.8" y1="36" x2="1057.3" y2="756"/><line x1="1431.4" y1="60" x2="184.3" y2="780"/><line x1="-231.4" y1="60" x2="1015.7" y2="780"/><line x1="1473" y1="84" x2="225.9" y2="804"/><line x1="-273" y1="84" x2="974.1" y2="804"/><line x1="1514.5" y1="108" x2="267.4" y2="828"/><line x1="-314.5" y1="108" x2="932.6" y2="828"/><line x1="1556.1" y1="132" x2="309" y2="852"/><line x1="-356.1" y1="132" x2="891" y2="852"/><line x1="1597.7" y1="156" x2="350.6" y2="876"/><line x1="-397.7" y1="156" x2="849.4" y2="876"/><line x1="1639.2" y1="180" x2="392.2" y2="900"/><line x1="-439.2" y1="180" x2="807.8" y2="900"/><line x1="1680.8" y1="204" x2="433.7" y2="924"/><line x1="-480.8" y1="204" x2="766.3" y2="924"/><line x1="1722.4" y1="228" x2="475.3" y2="948"/><line x1="-522.4" y1="228" x2="724.7" y2="948"/><line x1="1763.9" y1="252" x2="516.9" y2="972"/><line x1="-563.9" y1="252" x2="683.1" y2="972"/><line x1="1805.5" y1="276" x2="558.4" y2="996"/><line x1="-605.5" y1="276" x2="641.6" y2="996"/><line x1="1847.1" y1="300" x2="600" y2="1020"/><line x1="-647.1" y1="300" x2="600" y2="1020"/></g>
+<g class="routes">
+  <path id="r-in" d="M-136.1,205 L83.8,332 Q97.7,340 111.6,332 L205.1,278 Q218.9,270 232.8,278 L369.6,357 Q383.5,365 397.4,357 L464.9,318 Q478.8,310 492.6,318 L528.1,338.5 Q530.7,340 533.3,338.5 L535.9,337"/>
+  <path d="M63.1,50 L205.1,132 Q218.9,140 205.1,148 L120.2,197 Q106.4,205 120.2,213 L218.9,270"/>
+  <path id="r-a" d="M667.5,339 L759.3,392 Q773.2,400 787.1,392 L863.3,348 Q877.1,340 891,348 L917,363 Q930.8,371 946.6,373.4 L960.8,375.5 Q963.7,376 966.3,377.5 L968.9,379"/>
+  <path id="r-b" d="M667.5,339 L759.3,392 Q773.2,400 787.1,408 L894.4,470 Q908.3,478 922.2,470 L929.1,466 Q942.9,458 954.9,447.4 L985,420.7 Q988,418 991.4,416 L994.9,414"/>
+  <path id="r-c" d="M667.5,339 L759.3,392 Q773.2,400 787.1,408 L958.5,507 Q972.4,515 986.2,507 L993.2,503 Q1007,495 1019.5,485 L1066.3,447.5 Q1069.4,445 1072.8,443 L1076.3,441"/>
+</g>
+<g class="ink">
+<polygon points="257.1,168 279.6,181 279.6,155 257.1,142" fill="#b1dc88"/><polygon points="302.1,168 279.6,181 279.6,155 302.1,142" fill="#90c466"/><polygon points="279.6,129 302.1,142 279.6,155 257.1,142" fill="#d6efba"/><polygon points="291.7,180 307.3,189 307.3,131 291.7,122" fill="#f4bb6b"/><polygon points="322.9,180 307.3,189 307.3,131 322.9,122" fill="#e09e48"/><polygon points="307.3,113 322.9,122 307.3,131 291.7,122" fill="#fbdaa8"/><path d="M1147.1,490 L1147.1,456 A24.5,14.1 0 0 0 1196.1,456 L1196.1,490 A24.5,14.1 0 0 1 1147.1,490 Z" fill="#a3b7e4"/><path d="M1171.6,470.1 L1171.6,504.1 A24.5,14.1 0 0 0 1196.1,490 L1196.1,456 A24.5,14.1 0 0 1 1171.6,470.1 Z" fill="#8299d0" stroke="none"/><ellipse cx="1171.6" cy="456" rx="24.5" ry="14.1" fill="#cdd9f3"/><polygon points="1154.3,528 1169.8,537 1169.8,523 1154.3,514" fill="#f4bb6b"/><polygon points="1185.4,528 1169.8,537 1169.8,523 1185.4,514" fill="#e09e48"/><polygon points="1169.8,505 1185.4,514 1169.8,523 1154.3,514" fill="#fbdaa8"/><polygon points="814.8,116 833.8,127 833.8,105 814.8,94" fill="#c2afef"/><polygon points="852.9,116 833.8,127 833.8,105 852.9,94" fill="#a690df"/><polygon points="833.8,83 852.9,94 833.8,105 814.8,94" fill="#e1d7f8"/>
+<polygon points="868.5,415 1041.7,515 1041.7,501 868.5,401" fill="#b1dc88"/><polygon points="1214.9,415 1041.7,515 1041.7,501 1214.9,401" fill="#90c466"/><polygon points="1041.7,301 1214.9,401 1041.7,501 868.5,401" fill="#d6efba"/><polygon points="968.9,365 993.2,379 968.9,393 944.7,379" fill="#27325a"/><ellipse cx="994.9" cy="414" rx="20" ry="11.5" fill="#27325a"/><polygon points="1076.3,427 1102.3,442 1063.3,449.5" fill="#27325a"/><polygon points="1050.3,314 1201,401 1201,219 1050.3,132" fill="#34416f"/><polygon points="1207.9,397 1201,401 1201,219 1207.9,215" fill="#90c466"/><polygon points="1057.3,128 1207.9,215 1201,219 1050.3,132" fill="#d6efba"/><g transform="translate(1050.3,132) matrix(0.8660254,0.5,0,1,0,0)">
+  <rect x="7" y="7" width="160" height="168" rx="3" fill="#27325a" stroke="#4b5a92"/>
+  <text x="16" y="26" class="scr dim">// people voted</text>
+  <text x="16" y="44" class="scr" id="scr-q">Which is funnier?</text>
+  <text x="16" y="72" class="scr">A</text><rect x="30" y="63" width="96" height="10" rx="2" fill="#3d4a7c" stroke="none"/><rect id="scr-a" x="30" y="63" width="68" height="10" rx="2" fill="#b1dc88" stroke="none"/><text id="scr-ap" x="132" y="72" class="scr">71%</text>
+  <text x="16" y="94" class="scr">B</text><rect x="30" y="85" width="96" height="10" rx="2" fill="#3d4a7c" stroke="none"/><rect id="scr-b" x="30" y="85" width="27.8" height="10" rx="2" fill="#8b98c9" stroke="none"/><text id="scr-bp" x="132" y="94" class="scr">29%</text>
+  <text x="16" y="120" class="scr dim" id="scr-who">who: 18–24, US</text>
+  <text x="16" y="136" class="scr dim" id="scr-why">why: specific</text>
+  <text x="16" y="160" class="scr ok">✓ saved</text>
+</g><g transform="translate(1197.6,247)"><rect x="-11" y="-11" width="22" height="22" rx="4" fill="#d6efba"/><path d="M-5,0 L-1,4 L6,-4" fill="none" stroke-width="2.2"/></g>
+<g transform="translate(184.3,120)"><polygon points="-31.2,-2 3.5,18 3.5,11 -31.2,-9" fill="#f0a9c6"/><polygon points="31.2,2 3.5,18 3.5,11 31.2,-5" fill="#de87ab"/><polygon points="-3.5,-25 31.2,-5 3.5,11 -31.2,-9" fill="#f9d3e2"/><polygon points="-8.7,-14 10.4,-3 10.4,-40 -8.7,-51" fill="#fbfaf6"/><polygon points="12.1,-4 10.4,-3 10.4,-40 12.1,-41" fill="#dcd8cc"/><polygon points="-12.1,-9 6.9,2 6.9,-32 -12.1,-43" fill="#fbfaf6"/><polygon points="8.7,1 6.9,2 6.9,-32 8.7,-33" fill="#dcd8cc"/><line x1="-8.7" y1="-34" x2="3.5" y2="-27" class="thin"/><line x1="-8.7" y1="-27" x2="3.5" y2="-20" class="thin"/><line x1="-8.7" y1="-20" x2="-1.7" y2="-16" class="thin"/><g transform="translate(-13.9,4.5) matrix(0.8660254,0.5,0,1,0,0)"><text x="0" y="2.6" text-anchor="middle" class="lbl">MEME</text></g></g>
+<ellipse cx="600" cy="306" rx="150" ry="80" fill="#1d2433" opacity=".05" stroke="none"/><polygon points="600,122 745.5,206 672.7,170 527.3,86" fill="#56649b"/><polygon points="478.8,300 600,370 600,270 478.8,200" fill="#a3b7e4"/><polygon points="478.8,300 600,370 600,270 478.8,200" fill="url(#dots)" class="nos"/><polygon points="721.2,300 600,370 600,270 721.2,200" fill="#8299d0"/><polygon points="721.2,300 600,370 600,270 721.2,200" fill="url(#dots)" class="nos"/><polygon points="721.2,200 600,270 660.6,171" fill="#8299d0"/><polygon points="721.2,200 600,270 660.6,171" fill="url(#dots)" class="nos"/><polygon points="516,321.5 516,281.5 516.4,276.5 517.8,272.2 519.9,268.8 522.8,266.4 526.4,265.1 530.4,264.9 534.8,265.9 539.4,268 543.9,271.2 548.3,275.2 552.4,280.1 555.9,285.5 558.8,291.2 561,297.1 562.3,303 562.8,308.5 562.8,348.5" fill="#27325a"/><polygon points="637.2,348.5 637.2,308.5 637.7,303 639,297.1 641.2,291.2 644.1,285.5 647.6,280.1 651.7,275.2 656.1,271.2 660.6,268 665.2,265.9 669.6,264.9 673.6,265.1 677.2,266.4 680.1,268.8 682.2,272.2 683.6,276.5 684,281.5 684,321.5" fill="#27325a"/><g transform="translate(660.6,209) matrix(0.8660254,-0.5,0,1,0,0)"><rect x="-21" y="-21" width="42" height="42" rx="7" fill="#fff"/><image href="assets/sniff-dog-logo-120.png" x="-18" y="-18" width="36" height="36"/></g><polygon points="745.5,206 672.7,170 672.7,179 745.5,215" fill="#3b4878"/><polygon points="527.3,86 672.7,170 600,290 454.5,206" fill="#6f7fbd"/><line x1="509.1" y1="116" x2="654.6" y2="200" class="thin"/><line x1="490.9" y1="146" x2="636.4" y2="230" class="thin"/><line x1="472.7" y1="176" x2="618.2" y2="260" class="thin"/><polygon points="454.5,206 600,290 600,299 454.5,215" fill="#46548a"/><polygon points="672.7,170 600,290 600,299 672.7,179" fill="#34416f"/><path d="M524.7,375 L524.7,368 A14.7,8.5 0 0 0 554.1,368 L554.1,375 A14.7,8.5 0 0 1 524.7,375 Z" fill="#f0a9c6"/><path d="M539.4,376.5 L539.4,383.5 A14.7,8.5 0 0 0 554.1,375 L554.1,368 A14.7,8.5 0 0 1 539.4,376.5 Z" fill="#de87ab" stroke="none"/><ellipse cx="539.4" cy="368" rx="14.7" ry="8.5" fill="#f9d3e2"/>
+</g>
+<g class="ink" id="tok-layer"></g>
+<g class="ink"><g class="pawn" data-i="0" transform="translate(643.3,425.0)">
+    <ellipse cx="0" cy="0" rx="11" ry="5.5" fill="#d6b950"/>
+    <path d="M-9,0 L-6,-24 A6,3 0 0 1 6,-24 L9,0 A9,4.5 0 0 1 -9,0 Z" fill="#ecd172"/>
+    <circle cx="0" cy="-31" r="8" fill="#f7e9ad"/>
+    <g class="say" transform="translate(0,-50)"><rect x="-18" y="-11" width="36" height="20" rx="5" fill="#fff"/><path d="M-4,9 L0,14 L4,9" fill="#fff"/><text x="0" y="3.5" text-anchor="middle">A</text></g>
+  </g><g class="pawn" data-i="1" transform="translate(673.2,436.4)">
+    <ellipse cx="0" cy="0" rx="11" ry="5.5" fill="#de87ab"/>
+    <path d="M-9,0 L-6,-24 A6,3 0 0 1 6,-24 L9,0 A9,4.5 0 0 1 -9,0 Z" fill="#f0a9c6"/>
+    <circle cx="0" cy="-31" r="8" fill="#f9d3e2"/>
+    <g class="say" transform="translate(0,-50)"><rect x="-18" y="-11" width="36" height="20" rx="5" fill="#fff"/><path d="M-4,9 L0,14 L4,9" fill="#fff"/><text x="0" y="3.5" text-anchor="middle">A</text></g>
+  </g><g class="pawn" data-i="2" transform="translate(580.9,439.0)">
+    <ellipse cx="0" cy="0" rx="11" ry="5.5" fill="#a690df"/>
+    <path d="M-9,0 L-6,-24 A6,3 0 0 1 6,-24 L9,0 A9,4.5 0 0 1 -9,0 Z" fill="#c2afef"/>
+    <circle cx="0" cy="-31" r="8" fill="#e1d7f8"/>
+    <g class="say" transform="translate(0,-50)"><rect x="-18" y="-11" width="36" height="20" rx="5" fill="#fff"/><path d="M-4,9 L0,14 L4,9" fill="#fff"/><text x="0" y="3.5" text-anchor="middle">A</text></g>
+  </g><g class="pawn" data-i="3" transform="translate(615.1,439.1)">
+    <ellipse cx="0" cy="0" rx="11" ry="5.5" fill="#de87ab"/>
+    <path d="M-9,0 L-6,-24 A6,3 0 0 1 6,-24 L9,0 A9,4.5 0 0 1 -9,0 Z" fill="#f0a9c6"/>
+    <circle cx="0" cy="-31" r="8" fill="#f9d3e2"/>
+    <g class="say" transform="translate(0,-50)"><rect x="-18" y="-11" width="36" height="20" rx="5" fill="#fff"/><path d="M-4,9 L0,14 L4,9" fill="#fff"/><text x="0" y="3.5" text-anchor="middle">A</text></g>
+  </g><g class="pawn" data-i="4" transform="translate(750.8,450.7)">
+    <ellipse cx="0" cy="0" rx="11" ry="5.5" fill="#a690df"/>
+    <path d="M-9,0 L-6,-24 A6,3 0 0 1 6,-24 L9,0 A9,4.5 0 0 1 -9,0 Z" fill="#c2afef"/>
+    <circle cx="0" cy="-31" r="8" fill="#e1d7f8"/>
+    <g class="say" transform="translate(0,-50)"><rect x="-18" y="-11" width="36" height="20" rx="5" fill="#fff"/><path d="M-4,9 L0,14 L4,9" fill="#fff"/><text x="0" y="3.5" text-anchor="middle">A</text></g>
+  </g><g class="pawn" data-i="5" transform="translate(538.3,450.8)">
+    <ellipse cx="0" cy="0" rx="11" ry="5.5" fill="#e09e48"/>
+    <path d="M-9,0 L-6,-24 A6,3 0 0 1 6,-24 L9,0 A9,4.5 0 0 1 -9,0 Z" fill="#f4bb6b"/>
+    <circle cx="0" cy="-31" r="8" fill="#fbdaa8"/>
+    <g class="say" transform="translate(0,-50)"><rect x="-18" y="-11" width="36" height="20" rx="5" fill="#fff"/><path d="M-4,9 L0,14 L4,9" fill="#fff"/><text x="0" y="3.5" text-anchor="middle">A</text></g>
+  </g><g class="pawn" data-i="6" transform="translate(594.1,454.0)">
+    <ellipse cx="0" cy="0" rx="11" ry="5.5" fill="#a690df"/>
+    <path d="M-9,0 L-6,-24 A6,3 0 0 1 6,-24 L9,0 A9,4.5 0 0 1 -9,0 Z" fill="#c2afef"/>
+    <circle cx="0" cy="-31" r="8" fill="#e1d7f8"/>
+    <g class="say" transform="translate(0,-50)"><rect x="-18" y="-11" width="36" height="20" rx="5" fill="#fff"/><path d="M-4,9 L0,14 L4,9" fill="#fff"/><text x="0" y="3.5" text-anchor="middle">A</text></g>
+  </g><g class="pawn" data-i="7" transform="translate(707.4,458.0)">
+    <ellipse cx="0" cy="0" rx="11" ry="5.5" fill="#de87ab"/>
+    <path d="M-9,0 L-6,-24 A6,3 0 0 1 6,-24 L9,0 A9,4.5 0 0 1 -9,0 Z" fill="#f0a9c6"/>
+    <circle cx="0" cy="-31" r="8" fill="#f9d3e2"/>
+    <g class="say" transform="translate(0,-50)"><rect x="-18" y="-11" width="36" height="20" rx="5" fill="#fff"/><path d="M-4,9 L0,14 L4,9" fill="#fff"/><text x="0" y="3.5" text-anchor="middle">A</text></g>
+  </g><g class="pawn" data-i="8" transform="translate(652.0,460.0)">
+    <ellipse cx="0" cy="0" rx="11" ry="5.5" fill="#90c466"/>
+    <path d="M-9,0 L-6,-24 A6,3 0 0 1 6,-24 L9,0 A9,4.5 0 0 1 -9,0 Z" fill="#b1dc88"/>
+    <circle cx="0" cy="-31" r="8" fill="#d6efba"/>
+    <g class="say" transform="translate(0,-50)"><rect x="-18" y="-11" width="36" height="20" rx="5" fill="#fff"/><path d="M-4,9 L0,14 L4,9" fill="#fff"/><text x="0" y="3.5" text-anchor="middle">A</text></g>
+  </g><g class="pawn" data-i="9" transform="translate(779.5,466.2)">
+    <ellipse cx="0" cy="0" rx="11" ry="5.5" fill="#e09e48"/>
+    <path d="M-9,0 L-6,-24 A6,3 0 0 1 6,-24 L9,0 A9,4.5 0 0 1 -9,0 Z" fill="#f4bb6b"/>
+    <circle cx="0" cy="-31" r="8" fill="#fbdaa8"/>
+    <g class="say" transform="translate(0,-50)"><rect x="-18" y="-11" width="36" height="20" rx="5" fill="#fff"/><path d="M-4,9 L0,14 L4,9" fill="#fff"/><text x="0" y="3.5" text-anchor="middle">A</text></g>
+  </g><g class="pawn" data-i="10" transform="translate(508.0,466.4)">
+    <ellipse cx="0" cy="0" rx="11" ry="5.5" fill="#de87ab"/>
+    <path d="M-9,0 L-6,-24 A6,3 0 0 1 6,-24 L9,0 A9,4.5 0 0 1 -9,0 Z" fill="#f0a9c6"/>
+    <circle cx="0" cy="-31" r="8" fill="#f9d3e2"/>
+    <g class="say" transform="translate(0,-50)"><rect x="-18" y="-11" width="36" height="20" rx="5" fill="#fff"/><path d="M-4,9 L0,14 L4,9" fill="#fff"/><text x="0" y="3.5" text-anchor="middle">A</text></g>
+  </g><g class="pawn" data-i="11" transform="translate(836.0,467.2)">
+    <ellipse cx="0" cy="0" rx="11" ry="5.5" fill="#e09e48"/>
+    <path d="M-9,0 L-6,-24 A6,3 0 0 1 6,-24 L9,0 A9,4.5 0 0 1 -9,0 Z" fill="#f4bb6b"/>
+    <circle cx="0" cy="-31" r="8" fill="#fbdaa8"/>
+    <g class="say" transform="translate(0,-50)"><rect x="-18" y="-11" width="36" height="20" rx="5" fill="#fff"/><path d="M-4,9 L0,14 L4,9" fill="#fff"/><text x="0" y="3.5" text-anchor="middle">A</text></g>
+  </g><g class="pawn" data-i="12" transform="translate(567.2,468.4)">
+    <ellipse cx="0" cy="0" rx="11" ry="5.5" fill="#93c466"/>
+    <path d="M-9,0 L-6,-24 A6,3 0 0 1 6,-24 L9,0 A9,4.5 0 0 1 -9,0 Z" fill="#b1dc88"/>
+    <circle cx="0" cy="-31" r="8" fill="#d6efba"/>
+    <g class="say" transform="translate(0,-50)"><rect x="-18" y="-11" width="36" height="20" rx="5" fill="#fff"/><path d="M-4,9 L0,14 L4,9" fill="#fff"/><text x="0" y="3.5" text-anchor="middle">A</text></g>
+  </g><g class="pawn" data-i="13" transform="translate(593.1,474.0)">
+    <ellipse cx="0" cy="0" rx="11" ry="5.5" fill="#e09e48"/>
+    <path d="M-9,0 L-6,-24 A6,3 0 0 1 6,-24 L9,0 A9,4.5 0 0 1 -9,0 Z" fill="#f4bb6b"/>
+    <circle cx="0" cy="-31" r="8" fill="#fbdaa8"/>
+    <g class="say" transform="translate(0,-50)"><rect x="-18" y="-11" width="36" height="20" rx="5" fill="#fff"/><path d="M-4,9 L0,14 L4,9" fill="#fff"/><text x="0" y="3.5" text-anchor="middle">A</text></g>
+  </g><g class="pawn" data-i="14" transform="translate(484.8,482.5)">
+    <ellipse cx="0" cy="0" rx="11" ry="5.5" fill="#de87ab"/>
+    <path d="M-9,0 L-6,-24 A6,3 0 0 1 6,-24 L9,0 A9,4.5 0 0 1 -9,0 Z" fill="#f0a9c6"/>
+    <circle cx="0" cy="-31" r="8" fill="#f9d3e2"/>
+    <g class="say" transform="translate(0,-50)"><rect x="-18" y="-11" width="36" height="20" rx="5" fill="#fff"/><path d="M-4,9 L0,14 L4,9" fill="#fff"/><text x="0" y="3.5" text-anchor="middle">A</text></g>
+  </g><g class="pawn" data-i="15" transform="translate(533.0,484.0)">
+    <ellipse cx="0" cy="0" rx="11" ry="5.5" fill="#de87ab"/>
+    <path d="M-9,0 L-6,-24 A6,3 0 0 1 6,-24 L9,0 A9,4.5 0 0 1 -9,0 Z" fill="#f0a9c6"/>
+    <circle cx="0" cy="-31" r="8" fill="#f9d3e2"/>
+    <g class="say" transform="translate(0,-50)"><rect x="-18" y="-11" width="36" height="20" rx="5" fill="#fff"/><path d="M-4,9 L0,14 L4,9" fill="#fff"/><text x="0" y="3.5" text-anchor="middle">A</text></g>
+  </g><g class="pawn" data-i="16" transform="translate(803.3,484.3)">
+    <ellipse cx="0" cy="0" rx="11" ry="5.5" fill="#93c466"/>
+    <path d="M-9,0 L-6,-24 A6,3 0 0 1 6,-24 L9,0 A9,4.5 0 0 1 -9,0 Z" fill="#b1dc88"/>
+    <circle cx="0" cy="-31" r="8" fill="#d6efba"/>
+    <g class="say" transform="translate(0,-50)"><rect x="-18" y="-11" width="36" height="20" rx="5" fill="#fff"/><path d="M-4,9 L0,14 L4,9" fill="#fff"/><text x="0" y="3.5" text-anchor="middle">A</text></g>
+  </g><g class="pawn" data-i="17" transform="translate(701.4,485.2)">
+    <ellipse cx="0" cy="0" rx="11" ry="5.5" fill="#de87ab"/>
+    <path d="M-9,0 L-6,-24 A6,3 0 0 1 6,-24 L9,0 A9,4.5 0 0 1 -9,0 Z" fill="#f0a9c6"/>
+    <circle cx="0" cy="-31" r="8" fill="#f9d3e2"/>
+    <g class="say" transform="translate(0,-50)"><rect x="-18" y="-11" width="36" height="20" rx="5" fill="#fff"/><path d="M-4,9 L0,14 L4,9" fill="#fff"/><text x="0" y="3.5" text-anchor="middle">A</text></g>
+  </g><g class="pawn" data-i="18" transform="translate(752.0,486.1)">
+    <ellipse cx="0" cy="0" rx="11" ry="5.5" fill="#e09e48"/>
+    <path d="M-9,0 L-6,-24 A6,3 0 0 1 6,-24 L9,0 A9,4.5 0 0 1 -9,0 Z" fill="#f4bb6b"/>
+    <circle cx="0" cy="-31" r="8" fill="#fbdaa8"/>
+    <g class="say" transform="translate(0,-50)"><rect x="-18" y="-11" width="36" height="20" rx="5" fill="#fff"/><path d="M-4,9 L0,14 L4,9" fill="#fff"/><text x="0" y="3.5" text-anchor="middle">A</text></g>
+  </g><g class="pawn" data-i="19" transform="translate(647.8,486.4)">
+    <ellipse cx="0" cy="0" rx="11" ry="5.5" fill="#e09e48"/>
+    <path d="M-9,0 L-6,-24 A6,3 0 0 1 6,-24 L9,0 A9,4.5 0 0 1 -9,0 Z" fill="#f4bb6b"/>
+    <circle cx="0" cy="-31" r="8" fill="#fbdaa8"/>
+    <g class="say" transform="translate(0,-50)"><rect x="-18" y="-11" width="36" height="20" rx="5" fill="#fff"/><path d="M-4,9 L0,14 L4,9" fill="#fff"/><text x="0" y="3.5" text-anchor="middle">A</text></g>
+  </g><g class="pawn" data-i="20" transform="translate(508.4,497.7)">
+    <ellipse cx="0" cy="0" rx="11" ry="5.5" fill="#de87ab"/>
+    <path d="M-9,0 L-6,-24 A6,3 0 0 1 6,-24 L9,0 A9,4.5 0 0 1 -9,0 Z" fill="#f0a9c6"/>
+    <circle cx="0" cy="-31" r="8" fill="#f9d3e2"/>
+    <g class="say" transform="translate(0,-50)"><rect x="-18" y="-11" width="36" height="20" rx="5" fill="#fff"/><path d="M-4,9 L0,14 L4,9" fill="#fff"/><text x="0" y="3.5" text-anchor="middle">A</text></g>
+  </g><g class="pawn" data-i="21" transform="translate(614.9,497.8)">
+    <ellipse cx="0" cy="0" rx="11" ry="5.5" fill="#a690df"/>
+    <path d="M-9,0 L-6,-24 A6,3 0 0 1 6,-24 L9,0 A9,4.5 0 0 1 -9,0 Z" fill="#c2afef"/>
+    <circle cx="0" cy="-31" r="8" fill="#e1d7f8"/>
+    <g class="say" transform="translate(0,-50)"><rect x="-18" y="-11" width="36" height="20" rx="5" fill="#fff"/><path d="M-4,9 L0,14 L4,9" fill="#fff"/><text x="0" y="3.5" text-anchor="middle">A</text></g>
+  </g><g class="pawn" data-i="22" transform="translate(562.4,499.8)">
+    <ellipse cx="0" cy="0" rx="11" ry="5.5" fill="#de87ab"/>
+    <path d="M-9,0 L-6,-24 A6,3 0 0 1 6,-24 L9,0 A9,4.5 0 0 1 -9,0 Z" fill="#f0a9c6"/>
+    <circle cx="0" cy="-31" r="8" fill="#f9d3e2"/>
+    <g class="say" transform="translate(0,-50)"><rect x="-18" y="-11" width="36" height="20" rx="5" fill="#fff"/><path d="M-4,9 L0,14 L4,9" fill="#fff"/><text x="0" y="3.5" text-anchor="middle">A</text></g>
+  </g><g class="pawn" data-i="23" transform="translate(783.8,501.4)">
+    <ellipse cx="0" cy="0" rx="11" ry="5.5" fill="#a690df"/>
+    <path d="M-9,0 L-6,-24 A6,3 0 0 1 6,-24 L9,0 A9,4.5 0 0 1 -9,0 Z" fill="#c2afef"/>
+    <circle cx="0" cy="-31" r="8" fill="#e1d7f8"/>
+    <g class="say" transform="translate(0,-50)"><rect x="-18" y="-11" width="36" height="20" rx="5" fill="#fff"/><path d="M-4,9 L0,14 L4,9" fill="#fff"/><text x="0" y="3.5" text-anchor="middle">A</text></g>
+  </g><g class="pawn" data-i="24" transform="translate(724.9,501.5)">
+    <ellipse cx="0" cy="0" rx="11" ry="5.5" fill="#8299d0"/>
+    <path d="M-9,0 L-6,-24 A6,3 0 0 1 6,-24 L9,0 A9,4.5 0 0 1 -9,0 Z" fill="#a3b7e4"/>
+    <circle cx="0" cy="-31" r="8" fill="#cfdaf3"/>
+    <g class="say" transform="translate(0,-50)"><rect x="-18" y="-11" width="36" height="20" rx="5" fill="#fff"/><path d="M-4,9 L0,14 L4,9" fill="#fff"/><text x="0" y="3.5" text-anchor="middle">A</text></g>
+  </g><g class="pawn" data-i="25" transform="translate(669.6,501.8)">
+    <ellipse cx="0" cy="0" rx="11" ry="5.5" fill="#a690df"/>
+    <path d="M-9,0 L-6,-24 A6,3 0 0 1 6,-24 L9,0 A9,4.5 0 0 1 -9,0 Z" fill="#c2afef"/>
+    <circle cx="0" cy="-31" r="8" fill="#e1d7f8"/>
+    <g class="say" transform="translate(0,-50)"><rect x="-18" y="-11" width="36" height="20" rx="5" fill="#fff"/><path d="M-4,9 L0,14 L4,9" fill="#fff"/><text x="0" y="3.5" text-anchor="middle">A</text></g>
+  </g><g class="pawn" data-i="26" transform="translate(751.1,512.9)">
+    <ellipse cx="0" cy="0" rx="11" ry="5.5" fill="#93c466"/>
+    <path d="M-9,0 L-6,-24 A6,3 0 0 1 6,-24 L9,0 A9,4.5 0 0 1 -9,0 Z" fill="#b1dc88"/>
+    <circle cx="0" cy="-31" r="8" fill="#d6efba"/>
+    <g class="say" transform="translate(0,-50)"><rect x="-18" y="-11" width="36" height="20" rx="5" fill="#fff"/><path d="M-4,9 L0,14 L4,9" fill="#fff"/><text x="0" y="3.5" text-anchor="middle">A</text></g>
+  </g><g class="pawn" data-i="27" transform="translate(534.3,513.3)">
+    <ellipse cx="0" cy="0" rx="11" ry="5.5" fill="#d6b950"/>
+    <path d="M-9,0 L-6,-24 A6,3 0 0 1 6,-24 L9,0 A9,4.5 0 0 1 -9,0 Z" fill="#ecd172"/>
+    <circle cx="0" cy="-31" r="8" fill="#f7e9ad"/>
+    <g class="say" transform="translate(0,-50)"><rect x="-18" y="-11" width="36" height="20" rx="5" fill="#fff"/><path d="M-4,9 L0,14 L4,9" fill="#fff"/><text x="0" y="3.5" text-anchor="middle">A</text></g>
+  </g><g class="pawn" data-i="28" transform="translate(698.3,516.6)">
+    <ellipse cx="0" cy="0" rx="11" ry="5.5" fill="#93c466"/>
+    <path d="M-9,0 L-6,-24 A6,3 0 0 1 6,-24 L9,0 A9,4.5 0 0 1 -9,0 Z" fill="#b1dc88"/>
+    <circle cx="0" cy="-31" r="8" fill="#d6efba"/>
+    <g class="say" transform="translate(0,-50)"><rect x="-18" y="-11" width="36" height="20" rx="5" fill="#fff"/><path d="M-4,9 L0,14 L4,9" fill="#fff"/><text x="0" y="3.5" text-anchor="middle">A</text></g>
+  </g><g class="pawn" data-i="29" transform="translate(481.5,516.7)">
+    <ellipse cx="0" cy="0" rx="11" ry="5.5" fill="#a690df"/>
+    <path d="M-9,0 L-6,-24 A6,3 0 0 1 6,-24 L9,0 A9,4.5 0 0 1 -9,0 Z" fill="#c2afef"/>
+    <circle cx="0" cy="-31" r="8" fill="#e1d7f8"/>
+    <g class="say" transform="translate(0,-50)"><rect x="-18" y="-11" width="36" height="20" rx="5" fill="#fff"/><path d="M-4,9 L0,14 L4,9" fill="#fff"/><text x="0" y="3.5" text-anchor="middle">A</text></g>
+  </g><g class="pawn" data-i="30" transform="translate(592.5,517.2)">
+    <ellipse cx="0" cy="0" rx="11" ry="5.5" fill="#a690df"/>
+    <path d="M-9,0 L-6,-24 A6,3 0 0 1 6,-24 L9,0 A9,4.5 0 0 1 -9,0 Z" fill="#c2afef"/>
+    <circle cx="0" cy="-31" r="8" fill="#e1d7f8"/>
+    <g class="say" transform="translate(0,-50)"><rect x="-18" y="-11" width="36" height="20" rx="5" fill="#fff"/><path d="M-4,9 L0,14 L4,9" fill="#fff"/><text x="0" y="3.5" text-anchor="middle">A</text></g>
+  </g><g class="pawn" data-i="31" transform="translate(668.3,528.2)">
+    <ellipse cx="0" cy="0" rx="11" ry="5.5" fill="#d6b950"/>
+    <path d="M-9,0 L-6,-24 A6,3 0 0 1 6,-24 L9,0 A9,4.5 0 0 1 -9,0 Z" fill="#ecd172"/>
+    <circle cx="0" cy="-31" r="8" fill="#f7e9ad"/>
+    <g class="say" transform="translate(0,-50)"><rect x="-18" y="-11" width="36" height="20" rx="5" fill="#fff"/><path d="M-4,9 L0,14 L4,9" fill="#fff"/><text x="0" y="3.5" text-anchor="middle">A</text></g>
+  </g><g class="pawn" data-i="32" transform="translate(620.1,529.5)">
+    <ellipse cx="0" cy="0" rx="11" ry="5.5" fill="#d6b950"/>
+    <path d="M-9,0 L-6,-24 A6,3 0 0 1 6,-24 L9,0 A9,4.5 0 0 1 -9,0 Z" fill="#ecd172"/>
+    <circle cx="0" cy="-31" r="8" fill="#f7e9ad"/>
+    <g class="say" transform="translate(0,-50)"><rect x="-18" y="-11" width="36" height="20" rx="5" fill="#fff"/><path d="M-4,9 L0,14 L4,9" fill="#fff"/><text x="0" y="3.5" text-anchor="middle">A</text></g>
+  </g><g class="pawn" data-i="33" transform="translate(726.0,531.5)">
+    <ellipse cx="0" cy="0" rx="11" ry="5.5" fill="#a690df"/>
+    <path d="M-9,0 L-6,-24 A6,3 0 0 1 6,-24 L9,0 A9,4.5 0 0 1 -9,0 Z" fill="#c2afef"/>
+    <circle cx="0" cy="-31" r="8" fill="#e1d7f8"/>
+    <g class="say" transform="translate(0,-50)"><rect x="-18" y="-11" width="36" height="20" rx="5" fill="#fff"/><path d="M-4,9 L0,14 L4,9" fill="#fff"/><text x="0" y="3.5" text-anchor="middle">A</text></g>
+  </g><g class="pawn" data-i="34" transform="translate(565.2,531.8)">
+    <ellipse cx="0" cy="0" rx="11" ry="5.5" fill="#93c466"/>
+    <path d="M-9,0 L-6,-24 A6,3 0 0 1 6,-24 L9,0 A9,4.5 0 0 1 -9,0 Z" fill="#b1dc88"/>
+    <circle cx="0" cy="-31" r="8" fill="#d6efba"/>
+    <g class="say" transform="translate(0,-50)"><rect x="-18" y="-11" width="36" height="20" rx="5" fill="#fff"/><path d="M-4,9 L0,14 L4,9" fill="#fff"/><text x="0" y="3.5" text-anchor="middle">A</text></g>
+  </g><polygon points="25,432 63.1,454 63.1,382" fill="#a3b7e4"/><polygon points="101.2,432 63.1,454 63.1,382" fill="#8299d0"/><polygon points="61.3,461 80.4,472 80.4,439" fill="#f4bb6b"/><polygon points="99.4,461 80.4,472 80.4,439" fill="#e09e48"/></g>
+<g id="chip-layer"></g>
+</svg>
+<script type="application/json" id="iso-tpl">{"inTpl":{"PUN":"<polygon points=\"-31.2,-2 3.5,18 3.5,11 -31.2,-9\" fill=\"#f4bb6b\"/><polygon points=\"31.2,2 3.5,18 3.5,11 31.2,-5\" fill=\"#e09e48\"/><polygon points=\"-3.5,-25 31.2,-5 3.5,11 -31.2,-9\" fill=\"#fbdaa8\"/><polygon points=\"-8.7,-14 10.4,-3 10.4,-40 -8.7,-51\" fill=\"#fbfaf6\"/><polygon points=\"12.1,-4 10.4,-3 10.4,-40 12.1,-41\" fill=\"#dcd8cc\"/><polygon points=\"-12.1,-9 6.9,2 6.9,-32 -12.1,-43\" fill=\"#fbfaf6\"/><polygon points=\"8.7,1 6.9,2 6.9,-32 8.7,-33\" fill=\"#dcd8cc\"/><line x1=\"-8.7\" y1=\"-34\" x2=\"3.5\" y2=\"-27\" class=\"thin\"/><line x1=\"-8.7\" y1=\"-27\" x2=\"3.5\" y2=\"-20\" class=\"thin\"/><line x1=\"-8.7\" y1=\"-20\" x2=\"-1.7\" y2=\"-16\" class=\"thin\"/><g transform=\"translate(-13.9,4.5) matrix(0.8660254,0.5,0,1,0,0)\"><text x=\"0\" y=\"2.6\" text-anchor=\"middle\" class=\"lbl\">PUN</text></g>","REPLY":"<polygon points=\"-31.2,-2 3.5,18 3.5,11 -31.2,-9\" fill=\"#c2afef\"/><polygon points=\"31.2,2 3.5,18 3.5,11 31.2,-5\" fill=\"#a690df\"/><polygon points=\"-3.5,-25 31.2,-5 3.5,11 -31.2,-9\" fill=\"#e1d7f8\"/><polygon points=\"-8.7,-14 10.4,-3 10.4,-40 -8.7,-51\" fill=\"#fbfaf6\"/><polygon points=\"12.1,-4 10.4,-3 10.4,-40 12.1,-41\" fill=\"#dcd8cc\"/><polygon points=\"-12.1,-9 6.9,2 6.9,-32 -12.1,-43\" fill=\"#fbfaf6\"/><polygon points=\"8.7,1 6.9,2 6.9,-32 8.7,-33\" fill=\"#dcd8cc\"/><line x1=\"-8.7\" y1=\"-34\" x2=\"3.5\" y2=\"-27\" class=\"thin\"/><line x1=\"-8.7\" y1=\"-27\" x2=\"3.5\" y2=\"-20\" class=\"thin\"/><line x1=\"-8.7\" y1=\"-20\" x2=\"-1.7\" y2=\"-16\" class=\"thin\"/><g transform=\"translate(-13.9,4.5) matrix(0.8660254,0.5,0,1,0,0)\"><text x=\"0\" y=\"2.6\" text-anchor=\"middle\" class=\"lbl\">REPLY</text></g>","CAPTION":"<polygon points=\"-31.2,-2 3.5,18 3.5,11 -31.2,-9\" fill=\"#a3b7e4\"/><polygon points=\"31.2,2 3.5,18 3.5,11 31.2,-5\" fill=\"#8299d0\"/><polygon points=\"-3.5,-25 31.2,-5 3.5,11 -31.2,-9\" fill=\"#cdd9f3\"/><polygon points=\"-8.7,-14 10.4,-3 10.4,-40 -8.7,-51\" fill=\"#fbfaf6\"/><polygon points=\"12.1,-4 10.4,-3 10.4,-40 12.1,-41\" fill=\"#dcd8cc\"/><polygon points=\"-12.1,-9 6.9,2 6.9,-32 -12.1,-43\" fill=\"#fbfaf6\"/><polygon points=\"8.7,1 6.9,2 6.9,-32 8.7,-33\" fill=\"#dcd8cc\"/><line x1=\"-8.7\" y1=\"-34\" x2=\"3.5\" y2=\"-27\" class=\"thin\"/><line x1=\"-8.7\" y1=\"-27\" x2=\"3.5\" y2=\"-20\" class=\"thin\"/><line x1=\"-8.7\" y1=\"-20\" x2=\"-1.7\" y2=\"-16\" class=\"thin\"/><g transform=\"translate(-13.9,4.5) matrix(0.8660254,0.5,0,1,0,0)\"><text x=\"0\" y=\"2.6\" text-anchor=\"middle\" class=\"lbl\">CAPTION</text></g>","ROAST":"<polygon points=\"-31.2,-2 3.5,18 3.5,11 -31.2,-9\" fill=\"#f0a9c6\"/><polygon points=\"31.2,2 3.5,18 3.5,11 31.2,-5\" fill=\"#de87ab\"/><polygon points=\"-3.5,-25 31.2,-5 3.5,11 -31.2,-9\" fill=\"#f9d3e2\"/><polygon points=\"-8.7,-14 10.4,-3 10.4,-40 -8.7,-51\" fill=\"#fbfaf6\"/><polygon points=\"12.1,-4 10.4,-3 10.4,-40 12.1,-41\" fill=\"#dcd8cc\"/><polygon points=\"-12.1,-9 6.9,2 6.9,-32 -12.1,-43\" fill=\"#fbfaf6\"/><polygon points=\"8.7,1 6.9,2 6.9,-32 8.7,-33\" fill=\"#dcd8cc\"/><line x1=\"-8.7\" y1=\"-34\" x2=\"3.5\" y2=\"-27\" class=\"thin\"/><line x1=\"-8.7\" y1=\"-27\" x2=\"3.5\" y2=\"-20\" class=\"thin\"/><line x1=\"-8.7\" y1=\"-20\" x2=\"-1.7\" y2=\"-16\" class=\"thin\"/><g transform=\"translate(-13.9,4.5) matrix(0.8660254,0.5,0,1,0,0)\"><text x=\"0\" y=\"2.6\" text-anchor=\"middle\" class=\"lbl\">ROAST</text></g>","MEME":"<polygon points=\"-31.2,-2 3.5,18 3.5,11 -31.2,-9\" fill=\"#b1dc88\"/><polygon points=\"31.2,2 3.5,18 3.5,11 31.2,-5\" fill=\"#90c466\"/><polygon points=\"-3.5,-25 31.2,-5 3.5,11 -31.2,-9\" fill=\"#d6efba\"/><polygon points=\"-8.7,-14 10.4,-3 10.4,-40 -8.7,-51\" fill=\"#fbfaf6\"/><polygon points=\"12.1,-4 10.4,-3 10.4,-40 12.1,-41\" fill=\"#dcd8cc\"/><polygon points=\"-12.1,-9 6.9,2 6.9,-32 -12.1,-43\" fill=\"#fbfaf6\"/><polygon points=\"8.7,1 6.9,2 6.9,-32 8.7,-33\" fill=\"#dcd8cc\"/><line x1=\"-8.7\" y1=\"-34\" x2=\"3.5\" y2=\"-27\" class=\"thin\"/><line x1=\"-8.7\" y1=\"-27\" x2=\"3.5\" y2=\"-20\" class=\"thin\"/><line x1=\"-8.7\" y1=\"-20\" x2=\"-1.7\" y2=\"-16\" class=\"thin\"/><g transform=\"translate(-13.9,4.5) matrix(0.8660254,0.5,0,1,0,0)\"><text x=\"0\" y=\"2.6\" text-anchor=\"middle\" class=\"lbl\">MEME</text></g>","QUIP":"<polygon points=\"-31.2,-2 3.5,18 3.5,11 -31.2,-9\" fill=\"#ecd172\"/><polygon points=\"31.2,2 3.5,18 3.5,11 31.2,-5\" fill=\"#d6b950\"/><polygon points=\"-3.5,-25 31.2,-5 3.5,11 -31.2,-9\" fill=\"#f7e9ad\"/><polygon points=\"-8.7,-14 10.4,-3 10.4,-40 -8.7,-51\" fill=\"#fbfaf6\"/><polygon points=\"12.1,-4 10.4,-3 10.4,-40 12.1,-41\" fill=\"#dcd8cc\"/><polygon points=\"-12.1,-9 6.9,2 6.9,-32 -12.1,-43\" fill=\"#fbfaf6\"/><polygon points=\"8.7,1 6.9,2 6.9,-32 8.7,-33\" fill=\"#dcd8cc\"/><line x1=\"-8.7\" y1=\"-34\" x2=\"3.5\" y2=\"-27\" class=\"thin\"/><line x1=\"-8.7\" y1=\"-27\" x2=\"3.5\" y2=\"-20\" class=\"thin\"/><line x1=\"-8.7\" y1=\"-20\" x2=\"-1.7\" y2=\"-16\" class=\"thin\"/><g transform=\"translate(-13.9,4.5) matrix(0.8660254,0.5,0,1,0,0)\"><text x=\"0\" y=\"2.6\" text-anchor=\"middle\" class=\"lbl\">QUIP</text></g>"},"outShapes":{"A":"<polygon points=\"-22.5,0 0,13 0,-13 -22.5,-26\" fill=\"#c2afef\"/><polygon points=\"22.5,0 0,13 0,-13 22.5,-26\" fill=\"#a690df\"/><polygon points=\"0,-39 22.5,-26 0,-13 -22.5,-26\" fill=\"#e1d7f8\"/>","B":"<path d=\"M-19.6,0 L-19.6,-28 A19.6,11.3 0 0 0 19.6,-28 L19.6,0 A19.6,11.3 0 0 1 -19.6,0 Z\" fill=\"#a3b7e4\"/><path d=\"M0,-16.7 L0,11.3 A19.6,11.3 0 0 0 19.6,0 L19.6,-28 A19.6,11.3 0 0 1 0,-16.7 Z\" fill=\"#8299d0\" stroke=\"none\"/><ellipse cx=\"0\" cy=\"-28\" rx=\"19.6\" ry=\"11.3\" fill=\"#cdd9f3\"/>","C":"<polygon points=\"22.5,3 5.2,13 -8.7,-25 8.7,-35\" fill=\"#90c466\"/><polygon points=\"-22.5,-3 5.2,13 -8.7,-25\" fill=\"#b1dc88\"/>"}}</script>
+    </div>
+  </header>
+
+<footer>
+  <div class="l">Sniff © 2026. data.sniff.so</div>
+  <div class="r">
+    <a href="mailto:yaseen@sniff.so">Contact</a>
+    <nav>
+      <a href="https://people.sniff.so/">People by Sniff</a>
+      <a href="https://www.linkedin.com/company/dosniff" target="_blank" rel="noopener">LinkedIn</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+  /* ---------- Hero scene animation ---------- */
+  (function () {
+    var svg = document.getElementById('iso'); if (!svg) return;
+    var T = JSON.parse(document.getElementById('iso-tpl').textContent);
+    var NS = 'http://www.w3.org/2000/svg';
+    var layer = document.getElementById('tok-layer');
+    var rIn = document.getElementById('r-in');
+    var outs = { A: document.getElementById('r-a'), B: document.getElementById('r-b'), C: document.getElementById('r-c') };
+    var LABEL = { A: ['Funny', '71%'], B: ['Who', '18–24'], C: ['Why', 'specific'] };
+    var ICON = { A: '#c2afef', B: '#a3b7e4', C: '#b1dc88' };
+    var IN_KEYS = Object.keys(T.inTpl);
+    var pawns = [].slice.call(svg.querySelectorAll('.pawn .say'));
+    var SAYS = ['A', 'B', 'A', 'lol', 'meh', 'A', 'ha!'];
+    var SCREENS = [
+      { a: 71, b: 29, who: 'who: 18–24, US', why: 'why: specific' },
+      { a: 64, b: 36, who: 'who: 40+, UK', why: 'why: surprise' },
+      { a: 58, b: 42, who: 'who: 25–39, India', why: 'why: relatable' }
+    ];
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var movers = [], inN = 0, outN = 0, scrN = 0, visible = true, timer = null, raf = null;
+
+    function grp(html) { var el = document.createElementNS(NS, 'g'); el.innerHTML = html; return el; }
+    function chip(k) {
+      var l = LABEL[k], w = 30 + l[0].length * 6.4 + l[1].length * 6 + 8;
+      return '<g class="chip" transform="translate(0,-56)"><rect x="' + (-w / 2) + '" y="-11" width="' + w + '" height="22" rx="4"/>' +
+        '<rect class="ic" x="' + (-w / 2 + 5) + '" y="-6" width="12" height="12" rx="2.5" fill="' + ICON[k] + '"/>' +
+        '<text x="' + (-w / 2 + 22) + '" y="3.8">' + l[0] + '</text><text class="v" x="' + (w / 2 - 6) + '" y="3.6" text-anchor="end">' + l[1] + '</text></g>';
+    }
+    function place(m, p) {
+      var pt = m.path.getPointAtLength(m.len * p), dy = 0, op = 1;
+      if (p < 0.05) op = p / 0.05;
+      if (m.kind === 'in' && p > 0.93) op = Math.max(0, (1 - p) / 0.07);
+      if (m.kind === 'out' && p < 0.06) op = p / 0.06;
+      if (m.kind === 'out' && p > 0.9) { var q = (p - 0.9) / 0.1; dy = q * 16; op = 1 - q; }
+      m.el.setAttribute('transform', 'translate(' + pt.x.toFixed(1) + ',' + (pt.y + dy).toFixed(1) + ')');
+      m.el.style.opacity = op.toFixed(2);
+    }
+    function add(kind, path, html, speed, onEnd, startP) {
+      var el = grp(html); layer.appendChild(el);
+      var len = path.getTotalLength();
+      var m = { kind: kind, el: el, path: path, len: len, dur: len / speed, t0: performance.now() - (startP || 0) * (len / speed), onEnd: onEnd };
+      movers.push(m); place(m, startP || 0); return m;
+    }
+    function chatter() {
+      var picks = pawns.slice().sort(function () { return Math.random() - 0.5; }).slice(0, 6 + Math.floor(Math.random() * 4));
+      picks.forEach(function (s, i) {
+        setTimeout(function () {
+          s.querySelector('text').textContent = SAYS[Math.floor(Math.random() * SAYS.length)];
+          s.classList.add('on');
+          setTimeout(function () { s.classList.remove('on'); }, 1300);
+        }, i * 180);
+      });
+    }
+    function updateScreen() {
+      var d = SCREENS[scrN++ % SCREENS.length];
+      document.getElementById('scr-a').setAttribute('width', (96 * d.a / 100).toFixed(1));
+      document.getElementById('scr-b').setAttribute('width', (96 * d.b / 100).toFixed(1));
+      document.getElementById('scr-ap').textContent = d.a + '%';
+      document.getElementById('scr-bp').textContent = d.b + '%';
+      document.getElementById('scr-who').textContent = d.who;
+      document.getElementById('scr-why').textContent = d.why;
+    }
+    function spawnOut(startP) {
+      var k = ['A', 'B', 'C'][outN++ % 3];
+      add('out', outs[k], T.outShapes[k] + chip(k), 0.075, updateScreen, startP);
+    }
+    function spawnIn(startP) {
+      var key = IN_KEYS[inN++ % IN_KEYS.length];
+      add('in', rIn, T.inTpl[key], 0.085, function () { chatter(); setTimeout(function () { spawnOut(); }, 650); }, startP);
+    }
+    function frame(now) {
+      raf = null;
+      for (var i = movers.length - 1; i >= 0; i--) {
+        var m = movers[i], p = (now - m.t0) / m.dur;
+        if (p >= 1) { m.el.remove(); movers.splice(i, 1); if (m.onEnd) m.onEnd(); continue; }
+        place(m, p);
+      }
+      if (visible && !document.hidden) raf = requestAnimationFrame(frame);
+    }
+    function start() {
+      if (timer) return;
+      timer = setInterval(function () { if (visible && !document.hidden) spawnIn(); }, 2300);
+      if (!raf) raf = requestAnimationFrame(frame);
+    }
+    function stop() { clearInterval(timer); timer = null; }
+
+    // Seed the scene so it never starts empty.
+    [0.12, 0.42, 0.72].forEach(function (p) { spawnIn(p); });
+    spawnOut(0.35); spawnOut(0.7);
+    if (reduce) {
+      movers.forEach(function (m) { if (m.kind === 'out') m.el.style.opacity = 1; });
+      pawns.slice(0, 2).forEach(function (s, i) { s.querySelector('text').textContent = ['A', 'lol'][i]; s.classList.add('on'); });
+      return;
+    }
+    var paused = false;
+    function pause() { if (paused) return; paused = true; var now = performance.now(); movers.forEach(function (m) { m.pause = (now - m.t0) / m.dur; }); stop(); }
+    function resume() {
+      if (!paused || !visible || document.hidden) return; paused = false;
+      var now = performance.now(); movers.forEach(function (m) { if (m.pause != null) m.t0 = now - m.pause * m.dur; m.pause = null; });
+      start();
+    }
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) {
+        visible = es[0].isIntersecting;
+        if (visible) resume(); else pause();
+      }).observe(svg);
+    }
+    document.addEventListener('visibilitychange', function () { if (document.hidden) pause(); else resume(); });
+    start();
+  })();
+</script>
+</body>
+</html>
